@@ -10,6 +10,15 @@ class Cita extends Model
 {
     use HasFactory;
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Cita $cita): void {
+            if ($cita->horario_id) {
+                Horario::query()->whereKey($cita->horario_id)->update(['estado' => 'disponible']);
+            }
+        });
+    }
+
     protected $fillable = [
         'paciente_id',
         'medico_id',
@@ -34,4 +43,3 @@ class Cita extends Model
         return $this->belongsTo(Horario::class, 'horario_id');
     }
 }
-
