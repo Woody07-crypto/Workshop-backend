@@ -16,6 +16,7 @@ class MedicoSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'role' => 'admin',
+                'is_active' => true,
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],
@@ -26,6 +27,7 @@ class MedicoSeeder extends Seeder
             [
                 'name' => 'Medico Demo',
                 'role' => 'medico',
+                'is_active' => true,
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],
@@ -36,6 +38,7 @@ class MedicoSeeder extends Seeder
             [
                 'name' => 'Asistente Demo',
                 'role' => 'asistente',
+                'is_active' => true,
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],

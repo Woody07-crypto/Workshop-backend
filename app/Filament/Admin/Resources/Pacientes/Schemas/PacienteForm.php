@@ -2,10 +2,11 @@
 
 namespace App\Filament\Admin\Resources\Pacientes\Schemas;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class PacienteForm
@@ -37,6 +38,11 @@ class PacienteForm
                     ->columns(2),
                 Section::make('Expediente clinico')
                     ->relationship('expedienteClinico')
+                    ->disabled(function (): bool {
+                        $user = Filament::auth()->user();
+
+                        return $user instanceof \App\Models\User && $user->isAsistente();
+                    })
                     ->schema([
                         TextInput::make('numero_expediente')
                             ->required()

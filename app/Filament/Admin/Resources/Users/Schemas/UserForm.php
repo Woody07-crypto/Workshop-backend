@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\Users\Schemas;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class UserForm
@@ -33,6 +34,10 @@ class UserForm
                         'asistente' => 'Asistente',
                     ])
                     ->default('asistente'),
+                Toggle::make('is_active')
+                    ->label('Activo')
+                    ->default(true)
+                    ->required(),
             ]);
     }
 }
