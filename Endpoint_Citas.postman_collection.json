@@ -1,0 +1,53 @@
+{
+	"info": {
+		"name": "Workshop Clínica - API Citas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Crear Cita (Éxito 201)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Accept", "value": "application/json" },
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"url": { "raw": "http://localhost:8000/api/appointments", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "appointments"] },
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"patient_id\": 1,\n    \"doctor_id\": 2,\n    \"date\": \"2026-03-25\",\n    \"start_time\": \"09:00\",\n    \"end_time\": \"09:45\"\n}"
+				}
+			}
+		},
+		{
+			"name": "2. Error: Cita Duplicada (Conflicto 409)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Accept", "value": "application/json" },
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"url": { "raw": "http://localhost:8000/api/appointments", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "appointments"] },
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"patient_id\": 3,\n    \"doctor_id\": 2,\n    \"date\": \"2026-03-25\",\n    \"start_time\": \"09:15\",\n    \"end_time\": \"10:00\"\n}"
+				}
+			}
+		},
+		{
+			"name": "3. Error: Fuera de Horario (422)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Accept", "value": "application/json" },
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"url": { "raw": "http://localhost:8000/api/appointments", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "appointments"] },
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"patient_id\": 1,\n    \"doctor_id\": 2,\n    \"date\": \"2026-03-25\",\n    \"start_time\": \"23:00\",\n    \"end_time\": \"23:45\"\n}"
+				}
+			}
+		}
+	]
+}
