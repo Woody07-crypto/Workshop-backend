@@ -4,13 +4,42 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class MedicoSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin: el único que gestiona usuarios (regla de negocio; la tabla solo guarda el rol).
-        User::factory()->admin()->count(1)->create();
+        // Admin principal para acceso al panel.
+        User::query()->updateOrCreate(
+            ['email' => 'admin@test.local'],
+            [
+                'name' => 'Admin',
+                'role' => 'admin',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+        );
+
+        User::query()->updateOrCreate(
+            ['email' => 'medico@test.local'],
+            [
+                'name' => 'Medico Demo',
+                'role' => 'medico',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+        );
+
+        User::query()->updateOrCreate(
+            ['email' => 'asistente@test.local'],
+            [
+                'name' => 'Asistente Demo',
+                'role' => 'asistente',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+            ],
+        );
 
         // Médicos: atienden citas y consultan expedientes.
         User::factory()->medico()->count(5)->create();
